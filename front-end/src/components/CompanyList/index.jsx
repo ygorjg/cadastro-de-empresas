@@ -11,9 +11,22 @@ import {
 import { EditIcon, DeleteIcon, InfoIcon } from "@chakra-ui/icons";
 import { useContext, useEffect } from "react";
 import { Contexts } from "../../contexts/index";
+import ModalCompanyDetails from "../../components/ModalCompanyDetails";
+import ModalCompanyDelete from "../ModalCompanyDelete";
 
 const CompanyList = () => {
-  const { getCompanies, companies } = useContext(Contexts);
+  const {
+    getCompanies,
+    companies,
+    handleOpenCompanyDetails,
+    selectedCompany,
+    isOpenCompanyDetails,
+    handleCloseCompanyDetails,
+    handleOpenModalDelete,
+    selectedDeleteCompany,
+    isOpenCompanyDelete,
+    handleCloseModalDelete,
+  } = useContext(Contexts);
 
   useEffect(() => {
     getCompanies();
@@ -39,14 +52,38 @@ const CompanyList = () => {
               <Td>{company.name}</Td>
               <Td>{company.adress}</Td>
               <Td>
-                <InfoIcon marginRight="2" color="blue.600" cursor="pointer" />
+                <InfoIcon
+                  marginRight="2"
+                  color="blue.600"
+                  cursor="pointer"
+                  onClick={() => handleOpenCompanyDetails(company)}
+                />
                 <EditIcon color="green.300" cursor="pointer" />
-                <DeleteIcon marginLeft="2" color="red.400" cursor="pointer" />
+                <DeleteIcon
+                  marginLeft="2"
+                  color="red.400"
+                  cursor="pointer"
+                  onClick={() => handleOpenModalDelete(company)}
+                />
               </Td>
             </Tr>
           ))}
         </Tbody>
       </Table>
+      {selectedCompany && (
+        <ModalCompanyDetails
+          company={selectedCompany}
+          isOpen={isOpenCompanyDetails}
+          onClose={handleCloseCompanyDetails}
+        />
+      )}
+      {selectedDeleteCompany && (
+        <ModalCompanyDelete
+          company={selectedDeleteCompany}
+          isOpen={isOpenCompanyDelete}
+          onClose={handleCloseModalDelete}
+        />
+      )}
     </Flex>
   );
 };
