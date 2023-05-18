@@ -5,6 +5,7 @@ export const ModalsContexts = createContext();
 const ModalsProvider = ({ children }) => {
   const [selectedCompany, setSelectedCompany] = useState(null);
   const [isOpenAddCompany, setIsOpenAddCompany] = useState(false);
+  const [isOpenUpdateCompany, setIsOpenUpdateCompany] = useState(false);
   const [isOpenCompanyDetails, setIsOpenCompanyDetails] = useState(false);
   const [selectedDeleteCompany, setSelectedDeleteCompany] = useState(null);
   const [isOpenCompanyDelete, setIsOpenCompanyDelete] = useState(false);
@@ -15,6 +16,15 @@ const ModalsProvider = ({ children }) => {
 
   const handleCloseAddCompany = () => {
     setIsOpenAddCompany(false);
+  };
+
+  const handleOpenUpdateCompany = (company) => {
+    setSelectedCompany(company);
+    setIsOpenUpdateCompany(true);
+  };
+
+  const handleCloseUpdateCompany = () => {
+    setIsOpenUpdateCompany(false);
   };
 
   const handleOpenCompanyDetails = (company) => {
@@ -43,6 +53,9 @@ const ModalsProvider = ({ children }) => {
         isOpenAddCompany,
         handleOpenAddCompany,
         handleCloseAddCompany,
+        isOpenUpdateCompany,
+        handleOpenUpdateCompany,
+        handleCloseUpdateCompany,
         handleOpenCompanyDetails,
         selectedCompany,
         isOpenCompanyDetails,

@@ -17,7 +17,7 @@ import {
 } from "@chakra-ui/react";
 import { RequestsContexts } from "../../contexts/requestsContexts";
 
-const ModalAddCompany = ({ isOpen, onClose }) => {
+const ModalCompanyAdd = ({ isOpen, onClose }) => {
   const { addCompany, companies } = useContext(RequestsContexts);
 
   const initialFormData = {
@@ -146,4 +146,4 @@ const ModalAddCompany = ({ isOpen, onClose }) => {
   );
 };
 
-export default ModalAddCompany;
+export default ModalCompanyAdd;

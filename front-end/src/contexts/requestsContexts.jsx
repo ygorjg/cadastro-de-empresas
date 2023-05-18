@@ -30,6 +30,15 @@ const RequestsProvider = ({ children }) => {
       });
   };
 
+  const updateCompany = (formData) => {
+    axios
+      .patch(`http://localhost:4000/companies/${formData.id}`, formData)
+      .then()
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   const onDelete = (company) => {
     axios
       .delete(`http://localhost:4000/companies/${company.id}`)
@@ -53,6 +62,7 @@ const RequestsProvider = ({ children }) => {
         getCompanies,
         companies,
         addCompany,
+        updateCompany,
         onDelete,
       }}
     >

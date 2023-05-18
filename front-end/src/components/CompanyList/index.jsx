@@ -11,9 +11,10 @@ import {
 } from "@chakra-ui/react";
 import { EditIcon, DeleteIcon, InfoIcon } from "@chakra-ui/icons";
 import { ModalsContexts } from "../../contexts/modalsContexts";
+import ModalCompanyAdd from "../ModalCompanyAdd";
 import ModalCompanyDetails from "../ModalCompanyDetails";
+import ModalCompanyUpdate from "../ModalCompanyUpdate";
 import ModalCompanyDelete from "../ModalCompanyDelete";
-import ModalAddCompany from "../ModalAddCompany";
 import { RequestsContexts } from "../../contexts/requestsContexts";
 
 const CompanyList = () => {
@@ -21,6 +22,9 @@ const CompanyList = () => {
     isOpenAddCompany,
     handleCloseAddCompany,
     handleOpenCompanyDetails,
+    isOpenUpdateCompany,
+    handleCloseUpdateCompany,
+    handleOpenUpdateCompany,
     selectedCompany,
     isOpenCompanyDetails,
     handleCloseCompanyDetails,
@@ -62,7 +66,11 @@ const CompanyList = () => {
                   cursor="pointer"
                   onClick={() => handleOpenCompanyDetails(company)}
                 />
-                <EditIcon color="green.300" cursor="pointer" />
+                <EditIcon
+                  color="green.300"
+                  cursor="pointer"
+                  onClick={() => handleOpenUpdateCompany(company)}
+                />
                 <DeleteIcon
                   marginLeft="2"
                   color="red.400"
@@ -89,9 +97,15 @@ const CompanyList = () => {
         />
       )}
       {isOpenAddCompany && (
-        <ModalAddCompany
+        <ModalCompanyAdd
           isOpen={isOpenAddCompany}
           onClose={handleCloseAddCompany}
+        />
+      )}
+      {isOpenUpdateCompany && (
+        <ModalCompanyUpdate
+          isOpen={isOpenUpdateCompany}
+          onClose={handleCloseUpdateCompany}
         />
       )}
     </Flex>
