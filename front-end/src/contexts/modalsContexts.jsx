@@ -1,24 +1,20 @@
 import { createContext, useState } from "react";
-import axios from "axios";
 
-export const Contexts = createContext();
+export const ModalsContexts = createContext();
 
-const ContextProvider = ({ children }) => {
-  const [companies, setCompanies] = useState([]);
+const ModalsProvider = ({ children }) => {
   const [selectedCompany, setSelectedCompany] = useState(null);
+  const [isOpenAddCompany, setIsOpenAddCompany] = useState(false);
   const [isOpenCompanyDetails, setIsOpenCompanyDetails] = useState(false);
   const [selectedDeleteCompany, setSelectedDeleteCompany] = useState(null);
   const [isOpenCompanyDelete, setIsOpenCompanyDelete] = useState(false);
 
-  const getCompanies = () => {
-    axios
-      .get("http://localhost:4000/companies")
-      .then((response) => {
-        setCompanies(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  const handleOpenAddCompany = () => {
+    setIsOpenAddCompany(true);
+  };
+
+  const handleCloseAddCompany = () => {
+    setIsOpenAddCompany(false);
   };
 
   const handleOpenCompanyDetails = (company) => {
@@ -41,22 +37,12 @@ const ContextProvider = ({ children }) => {
     setIsOpenCompanyDelete(false);
   };
 
-  const onDelete = (id) => {
-    axios
-      .delete(`http://localhost:4000/companies/${id}`)
-      .then((response) => {
-        setIsOpenCompanyDelete(false);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
   return (
-    <Contexts.Provider
+    <ModalsContexts.Provider
       value={{
-        getCompanies,
-        companies,
+        isOpenAddCompany,
+        handleOpenAddCompany,
+        handleCloseAddCompany,
         handleOpenCompanyDetails,
         selectedCompany,
         isOpenCompanyDetails,
@@ -64,13 +50,13 @@ const ContextProvider = ({ children }) => {
         handleOpenModalDelete,
         selectedDeleteCompany,
         isOpenCompanyDelete,
+        setIsOpenCompanyDelete,
         handleCloseModalDelete,
-        onDelete,
       }}
     >
       {children}
-    </Contexts.Provider>
+    </ModalsContexts.Provider>
   );
 };
 
-export default ContextProvider;
+export default ModalsProvider;

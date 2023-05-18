@@ -1,3 +1,4 @@
+import { useContext, useEffect } from "react";
 import {
   Flex,
   Table,
@@ -9,15 +10,16 @@ import {
   useBreakpointValue,
 } from "@chakra-ui/react";
 import { EditIcon, DeleteIcon, InfoIcon } from "@chakra-ui/icons";
-import { useContext, useEffect } from "react";
-import { Contexts } from "../../contexts/index";
-import ModalCompanyDetails from "../../components/ModalCompanyDetails";
+import { ModalsContexts } from "../../contexts/modalsContexts";
+import ModalCompanyDetails from "../ModalCompanyDetails";
 import ModalCompanyDelete from "../ModalCompanyDelete";
+import ModalAddCompany from "../ModalAddCompany";
+import { RequestsContexts } from "../../contexts/requestsContexts";
 
 const CompanyList = () => {
   const {
-    getCompanies,
-    companies,
+    isOpenAddCompany,
+    handleCloseAddCompany,
     handleOpenCompanyDetails,
     selectedCompany,
     isOpenCompanyDetails,
@@ -26,7 +28,9 @@ const CompanyList = () => {
     selectedDeleteCompany,
     isOpenCompanyDelete,
     handleCloseModalDelete,
-  } = useContext(Contexts);
+  } = useContext(ModalsContexts);
+
+  const { getCompanies, companies } = useContext(RequestsContexts);
 
   useEffect(() => {
     getCompanies();
@@ -82,6 +86,12 @@ const CompanyList = () => {
           company={selectedDeleteCompany}
           isOpen={isOpenCompanyDelete}
           onClose={handleCloseModalDelete}
+        />
+      )}
+      {isOpenAddCompany && (
+        <ModalAddCompany
+          isOpen={isOpenAddCompany}
+          onClose={handleCloseAddCompany}
         />
       )}
     </Flex>
