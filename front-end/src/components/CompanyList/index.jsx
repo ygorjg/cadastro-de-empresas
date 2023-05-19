@@ -58,7 +58,9 @@ const CompanyList = () => {
             <Tr key={company.id}>
               <Td>{company.id}</Td>
               <Td>{company.name}</Td>
-              <Td>{company.adress}</Td>
+              <Td>
+                {company.adress}, {company.number}
+              </Td>
               <Td>
                 <InfoIcon
                   marginRight="2"
